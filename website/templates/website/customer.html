@@ -1,0 +1,42 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+    <div class="card text-center mx-auto border border-3 border-secondary" style="width: 25rem;">
+        <img src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{customer.first_name}} {{customer.last_name}}</h5>
+        </div>
+        <ul class="list-group list-group-flush mg-1">
+            <li class="list-group-item">Phone: {{customer.phone}}</li>
+            <li class="list-group-item">Email: {{customer.email}}</li>
+            <li class="list-group-item">Address: {{customer.address}}</li>
+            <li class="list-group-item">City: {{customer.city|title}}</li>
+            <li class="list-group-item">State: {{customer.state|title}}</li>
+            <li class="list-group-item">ZipCode: {{customer.zipcode}}</li>
+        </ul>
+        <div class="card-body">
+        <a href="#" class="card-link">Another link</a>
+        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal">Delete</a>
+        <a href="{% url 'website:home' %}" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+  
+    <!-- Modal -->
+    <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteModalLabel">Warning</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <strong>Are you sure you want to delete this Record?</strong>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="{% url 'website:delete' customer.id %}" type="button" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

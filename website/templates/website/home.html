@@ -3,7 +3,6 @@
 {% block content %}
     {% if user.is_authenticated %}
         <h1>Customers</h1>
-
         <table class="table table-bordered table-striped table-hover">
             <thead class="table-dark">
                 <tr>
@@ -22,7 +21,7 @@
                 {% if customers %}
                     {% for customer in customers %}
                         <tr> 
-                            <td>{{customer.id}}</td>
+                            <td><a href="{% url 'website:customer' customer.id %}">{{customer.id}}</a></td>
                             <td>{{customer.first_name}} {{customer.last_name}}</td>
                             <td>{{customer.email}}</td>
                             <td>{{customer.phone}}</td>
@@ -36,19 +35,20 @@
                 {% endif %}
             </tbody>
             </table>
-
     {% else %}
-        <h1>Login</h1>
-        <br>
-        <form action="{% url 'website:home' %}" method="POST">
-            {% csrf_token %}
-            <div class="mb-3">
-                <input type="text" class="form-control" name="username" placeholder="Username" required>
-            </div>
-            <div class="mb-3">
-                <input type="password" class="form-control" name="password" placeholder="Password" required>
-            </div>
-            <button type="submit" class="btn btn-secondary">Login</button>
-        </form>
+        <div class="col-md-6 offset-md-3">
+            <h1>Login</h1>
+            <br>
+            <form action="{% url 'website:home' %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="username" placeholder="Username" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Login</button>
+            </form>
+        </div>
     {% endif %}
 {% endblock content %}

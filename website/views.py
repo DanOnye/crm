@@ -50,3 +50,26 @@ def register_user(request):
     return render(request, 'website/register.html',  {
         "form": form
     })
+
+def customer_page(request, pk):
+    # Show User record if logged in
+    if request.user.is_authenticated:
+        customer = models.Customer.objects.get(id=pk)
+        return render(request, 'website/customer.html', {
+            "customer": customer
+        })
+    else:
+        messages.success(request, "You must be logged in to view this page... Sorry!")
+        return redirect('website:home')
+    
+def delete_customer(request, pk):
+    if request.user.is_authenticated:
+        customer = models.Customer.objects.get(id=pk)
+        customer.delete()
+        messages.success(request, "Customer Deleted Successfully...")
+        return redirect('website:home')
+    else:
+        messages.success(request, "You must be logged in to do this action!")
+        return redirect('website:home')
+
+        
