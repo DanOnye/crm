@@ -1,8 +1,9 @@
 {% extends "website/base.html" %}
+{% load static %}
 
 {% block content %}
     <div class="card text-center mx-auto border border-3 border-secondary" style="width: 25rem;">
-        <img src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8" class="card-img-top" alt="...">
+        <img src="{% static image %}" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{customer.first_name}} {{customer.last_name}}</h5>
         </div>

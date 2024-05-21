@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import *
 from . import models
+import os
+import random
 
 # Create your views here.
 def home(request):
@@ -52,11 +54,15 @@ def register_user(request):
     })
 
 def customer_page(request, pk):
-    # Show User record if logged in
+    # Show User record if logged in\
+    image_list = os.listdir('./website/static/website')
+    image = f"website/{random.choice(image_list)}"
+
     if request.user.is_authenticated:
         customer = models.Customer.objects.get(id=pk)
         return render(request, 'website/customer.html', {
-            "customer": customer
+            "customer": customer,
+            "image": image
         })
     else:
         messages.success(request, "You must be logged in to view this page... Sorry!")
