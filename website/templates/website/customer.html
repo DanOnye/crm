@@ -15,7 +15,7 @@
             <li class="list-group-item">ZipCode: {{customer.zipcode}}</li>
         </ul>
         <div class="card-body">
-        <a href="#" class="card-link">Another link</a>
+        <a href="{% url 'website:update' customer.id %}" class="btn btn-dark">Edit</a>
         <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal">Delete</a>
         <a href="{% url 'website:home' %}" class="btn btn-secondary">Back</a>
         </div>

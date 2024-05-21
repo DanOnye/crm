@@ -72,4 +72,34 @@ def delete_customer(request, pk):
         messages.success(request, "You must be logged in to do this action!")
         return redirect('website:home')
 
-        
+def add_customer(request):
+    if request.user.is_authenticated:
+        form = AddCustomerForm(request.POST or None)
+        if request.method == "POST":
+            if form.is_valid():
+                add_record = form.save()
+                messages.success(request, 'You have successfully added a new customer!')
+                return redirect('website:home')
+        return render(request, 'website/add_customer.html', {
+            "form": form
+        })
+    else:
+        messages.success(request, "You must be logged in to do this action!")
+        return redirect('website:home')
+
+def update_customer(request, pk):
+    if request.user.is_authenticated:
+        user = models.Customer.objects.get(id=pk)
+        form = AddCustomerForm(request.POST or None, instance=user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'You have successfully updated the customer!')
+            return redirect('website:home')
+        return render(request, 'website/update_customer.html', {
+            "form": form,
+            "customer": user
+        })
+    else:
+        messages.success(request, "You must be logged in to do this action!")
+        return redirect('website:home')
